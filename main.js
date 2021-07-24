@@ -1,8 +1,8 @@
-document.getElementById('sendRequest').addEventListener("click", sendRequest)
-ws://[WLED-IP]/ws
+// document.getElementById('sendRequest').addEventListener("click", sendRequest)
+document.getElementById('solidColor').addEventListener("input", setSolidColor)
+document.getElementById('niceColor').addEventListener("input", setNiceColor)
 
-
-function sendRequest() {
+function sendRequest(request) {
 
     // Sending and receiving data in JSON format using POST method
     //
@@ -14,30 +14,48 @@ function sendRequest() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);
             // console.log(json.email + ", " + json.password);
-            console.log(json)
+            // console.log(json) // answer here
         }
     };
 
-    // {"seg": [{"col":[[0,255,200]]}]}
+    // {"seg": [{"col":[[0,255,200]]}]
+    var data = JSON.stringify(request);
 
-
-
-    var data = JSON.stringify({
-        "seg": { "col": [[255, 255, 255], [255, 255, 255], [255, 255, 255]] },
-        "bri": 255
-    });
     xhr.send(data);
 
 }
 
+function setSolidColor() {
 
-function httpGetAsync(theUrl, callback) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            callback(xmlHttp.responseText);
-        }
+    var colorString = document.getElementById('solidColor').value;
+
+    console.log(colorString);
+
+    colorArr = calculateRgbFromString(colorString);
+
+
+    var request = {
+        "seg": [
+            { "col": [[colorArr[0],colorArr[1],colorArr[2]]] }
+        ]
     }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-    xmlHttp.send(null);
+    console.log(colorArr);
+    sendRequest(request);
+}
+
+function calculateRgbFromString(string) {
+
+
+    r = string.slice(1, 3);
+    r = parseInt(r, 16);
+    g = string.slice(3, 5);
+    g = parseInt(g, 16);
+    b = string.slice(5, 7);
+    b = parseInt(b, 16);
+
+    return [r, g, b]
+}
+
+function setNiceColor() {
+
 }
