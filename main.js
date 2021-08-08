@@ -36,7 +36,7 @@ function setSolidColor() {
             { "col": [[colorArr[0], colorArr[1], colorArr[2]]] }
         ]
     }
-    console.log(colorArr);
+    // console.log(colorArr);
     sendRequest(request);
 }
 
@@ -59,7 +59,7 @@ function setNiceColor() {
 
 function setBrightness() {
     var value = document.getElementById('brightness').value;   
-    console.log(value)
+    // console.log(value)
     var message = {
         "bri" : value
     }
