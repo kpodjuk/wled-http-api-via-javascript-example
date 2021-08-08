@@ -1,7 +1,7 @@
 // document.getElementById('sendRequest').addEventListener("click", sendRequest)
 document.getElementById('solidColor').addEventListener("input", setSolidColor)
-document.getElementById('niceColor').addEventListener("input", setNiceColor)
-
+// document.getElementById('niceColor').addEventListener("input", setNiceColor)
+document.getElementById('brightness').addEventListener("input", setBrightness)
 function sendRequest(request) {
 
     // Sending and receiving data in JSON format using POST method
@@ -14,10 +14,9 @@ function sendRequest(request) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);
             // console.log(json.email + ", " + json.password);
-            // console.log(json) // answer here
+            console.log(json) // answer here
         }
     };
-
     // {"seg": [{"col":[[0,255,200]]}]
     var data = JSON.stringify(request);
 
@@ -29,14 +28,12 @@ function setSolidColor() {
 
     var colorString = document.getElementById('solidColor').value;
 
-    console.log(colorString);
+    // console.log(colorString);
 
     colorArr = calculateRgbFromString(colorString);
-
-
     var request = {
         "seg": [
-            { "col": [[colorArr[0],colorArr[1],colorArr[2]]] }
+            { "col": [[colorArr[0], colorArr[1], colorArr[2]]] }
         ]
     }
     console.log(colorArr);
@@ -44,7 +41,6 @@ function setSolidColor() {
 }
 
 function calculateRgbFromString(string) {
-
 
     r = string.slice(1, 3);
     r = parseInt(r, 16);
@@ -57,5 +53,18 @@ function calculateRgbFromString(string) {
 }
 
 function setNiceColor() {
+
+}
+
+
+function setBrightness() {
+    var value = document.getElementById('brightness').value;   
+    console.log(value)
+    var message = {
+        "bri" : value
+    }
+
+sendRequest(message);
+
 
 }

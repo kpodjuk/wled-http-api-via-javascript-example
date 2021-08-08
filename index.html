@@ -3,12 +3,14 @@
     <head>
     </head>
     <body>
-        <h1>WLED API</h1>
-        <button id="niceColor">Biały</button>
+        <h1>Choose color</h1>
+        <!-- <button id="niceColor">Biały</button> -->
         <!-- <button id="sendRequest">Biały</button> -->
         <input id='solidColor' type="color">
 
-
+        <div class="slidecontainer">
+            <input type="range" min="1" max="255" value="50" class="slider" id="brightness">
+          </div>
 
         <script src='main.js'></script>
 
